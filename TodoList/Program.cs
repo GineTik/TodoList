@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using TodoList.Data.EF;
 
@@ -14,7 +15,13 @@ namespace TodoList
 
             builder.Services.AddDbContext<DataContext>(
                 options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
-             
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "Authentication/Login";
+                });
+
             var app = builder.Build();
 
             app.UseHttpsRedirection();
@@ -24,17 +31,15 @@ namespace TodoList
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Authentication}/{action=Index}");
+                    template: "{controller=Authentication}/{action=Login}");
             });
-
-            //app.UseMvc();
-            //app.MapControllerRoute(
-            //    "default",
-            //    "{controller}/{action=Index}");
 
             app.Run();
         }
