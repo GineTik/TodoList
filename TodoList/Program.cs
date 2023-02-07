@@ -19,12 +19,13 @@ namespace TodoList
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "Authentication/Login";
+                    options.LoginPath = "/Authentication/Login";
                 });
 
             var app = builder.Build();
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             if (app.Environment.IsDevelopment())
             {

@@ -1,0 +1,20 @@
+﻿<!DOCUMENT html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="TodoList for portfolio">
+        <meta name="keywords" content="HTML, CSS, JavaScript, Asp.Net, Core 7, Portfolio, TodoList., Mvc">
+        <meta name="author" content="Denis Shevchuk">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        @RenderSection("Styles", required: false)
+    </head>
+    <body>
+        ----- 
+        <br />
+        @RenderBody()
+        <br />
+        -----
+        @RenderSection("Scripts", required: false)
+    </body>
+</html>
