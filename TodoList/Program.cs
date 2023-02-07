@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using TodoList.Data.EF;
+
 namespace TodoList
 {
     public class Program
@@ -9,6 +12,9 @@ namespace TodoList
             builder.Services.AddMvc(options =>
                 options.EnableEndpointRouting = false);
 
+            builder.Services.AddDbContext<DataContext>(
+                options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+             
             var app = builder.Build();
 
             app.UseHttpsRedirection();

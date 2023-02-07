@@ -2,7 +2,7 @@
 
 namespace TodoList.Core.Entities
 {
-    public class Task
+    public class TodoTask
     {
         public int Id { get; set; }
 
