@@ -2,7 +2,7 @@
 
 namespace TodoList.Web.ViewModels.AuthenticationViewModels
 {
-    public class LoginViewModel
+    public class RegistrationViewModel
     {
         [Required]
         [MaxLength(60)]

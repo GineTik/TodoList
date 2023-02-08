@@ -40,15 +40,22 @@
 }
 
 .form__button {
-    margin-top: 7px;
+    margin-top: 10px;
 }
 
-.validation-list {
+.validation-list:is(.validation-summary-errors) {
     background: var(--button-background);
     border-radius: 10px;
-    padding: 10px;
+    padding: 10px 12px;
     margin-top: 10px;
     width: var(--main-width);
+}
+
+.validation-list ul {
+    list-style: none;
+    color: var(--button-text);
+    margin: 0;
+    padding: 0;
 }
 
 .field-validation-error {

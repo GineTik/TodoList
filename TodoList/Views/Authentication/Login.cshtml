@@ -7,11 +7,7 @@
     <button class="button form__button">ввійти</button>
 </form>
 
-<div class="validation-list">
-    <span asp-validation-for="Login"></span>
-    <span asp-validation-for="Password"></span>
-    <span asp-validation-for="ConfirmPassword"></span>
-</div>
+<div class="validation-list" asp-validation-summary="All"></div>
 
 @section Styles {
     <link href="~/styles/form.css" rel="stylesheet" />

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TodoList.Web.ViewModels.AuthenticationViewModels;
 
@@ -26,9 +27,19 @@ namespace TodoList.Controllers
         }
 
         [HttpPost]
+        public IActionResult Registration(RegistrationViewModel model)
+        {
+            if (ModelState.IsValid == false)
+                return View(model);
+
+            return RedirectToAction("Index", "Tasks");
+        }
+
+        [HttpPost]
         [Authorize]
         public IActionResult Logout()
         {
+            HttpContext.SignOutAsync();
             return Redirect("/");
         }
     }
