@@ -1,0 +1,72 @@
+﻿:root {
+    --page-background: #b04632;
+    --button-text: #fff;
+    --button-background: #ffffff33;
+    --button-background-hover: #ffffff66;
+    --input-background-focus: #ffffff;
+    --text: #ffffff99;
+    --text-focused: #000;
+    --placeholder-focused: #00000066;
+    --shadow: #00000011;
+    --main-width: 400px;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: var(--page-background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    width: var(--main-width);
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.header > *:not(:last-child) {
+    margin-right: 7px;
+}
+
+.header__button {
+    width: 50%;
+}
+
+.main {
+    width: var(--main-width);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    border: 0;
+    text-align: center;
+    padding: 7px 15px;
+    border-radius: 10px;
+    color: var(--button-text);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 400;
+    flex: 1 1 auto;
+    cursor: pointer;
+    background: var(--button-background);
+    box-shadow: 0 0 10px 0 var(--shadow);
+    transition: .15s;
+}
+
+.button:hover {
+    background: var(--button-background-hover);
+}
+
+.text {
+    color: var(--text);
+    display: inline-block;
+}

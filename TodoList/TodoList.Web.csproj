@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
+	  <Folder Include="Components\" />
+	  <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TodoList.ViewModels.AuthenticationViewModels;
+using TodoList.Web.ViewModels.AuthenticationViewModels;
 
 namespace TodoList.Controllers
 {

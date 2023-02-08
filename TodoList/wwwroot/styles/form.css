@@ -1,0 +1,66 @@
+﻿.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--button-background);
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 0 10px 0 var(--shadow);
+}
+
+.form__input {
+    display: inline-block;
+    width: 100%;
+    border: 0;
+    background: #fff;
+    border-radius: 10px;
+    padding: 7px 15px;
+    outline: 0;
+    background: var(--input-background);
+    font-size: 1rem;
+    transition: .15s;
+    color: var(--button-text);
+}
+
+.form__input:hover {
+    background: var(--button-background);
+}
+
+.form__input:focus {
+    background: var(--input-background-focus);
+    color: var(--text-focused);
+}
+
+.form__input:focus::placeholder {
+    color: var(--placeholder-focused);
+}
+
+.form__input::placeholder {
+    color: var(--text);
+}
+
+.form__button {
+    margin-top: 7px;
+}
+
+.validation-list {
+    background: var(--button-background);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    width: var(--main-width);
+}
+
+.field-validation-error {
+    color: var(--button-text);
+    font-size: 1rem;
+    display: block;
+}
+
+.field-validation-error:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.input__wrapper {
+    margin-bottom: 7px;
+}

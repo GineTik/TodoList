@@ -39,7 +39,7 @@ namespace TodoList
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Authentication}/{action=Login}");
+                    template: "{controller=Tasks}/{action=Index}");
             });
 
             app.Run();

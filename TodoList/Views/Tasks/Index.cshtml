@@ -1,0 +1,8 @@
+﻿@if (Context.User.Identity.Name == null)
+{
+    <p class="text">Ввійдіть/Зареєструйтесь щоб працювати з TodoList</p>
+}
+else 
+{
+    <p class="text">Ви ввійшли</p>
+}

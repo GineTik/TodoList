@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TodoList.ViewModels.AuthenticationViewModels
+namespace TodoList.Web.ViewModels.AuthenticationViewModels
 {
     public class LoginViewModel
     {
@@ -13,6 +13,7 @@ namespace TodoList.ViewModels.AuthenticationViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [Required]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
     }

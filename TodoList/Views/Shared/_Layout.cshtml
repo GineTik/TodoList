@@ -1,20 +1,26 @@
-﻿<!DOCUMENT html>
+﻿<!DOCTYPE html>
 <html lang="uk">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="description" content="TodoList for portfolio">
-        <meta name="keywords" content="HTML, CSS, JavaScript, Asp.Net, Core 7, Portfolio, TodoList., Mvc">
-        <meta name="author" content="Denis Shevchuk">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="TodoList for portfolio">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Asp.Net, Core 7, Portfolio, TodoList., Mvc">
+    <meta name="author" content="Denis Shevchuk">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        @RenderSection("Styles", required: false)
-    </head>
-    <body>
-        ----- 
-        <br />
+    <link href="/styles/main.css" rel="stylesheet" />
+    <link href="/styles/reset.css" rel="stylesheet" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header class="header">
+        <a asp-controller="Authentication" asp-action="Login" class="button header__button button--login">ввійти</a>
+        <a asp-controller="Authentication" asp-action="Registration" class="button header__button button--registration">зареєструватися</a>
+    </header>
+    <main class="main">
         @RenderBody()
-        <br />
-        -----
-        @RenderSection("Scripts", required: false)
-    </body>
+    </main>
+
+    <script src="~/libs/jquery/jquery-3.6.3.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
 </html>
