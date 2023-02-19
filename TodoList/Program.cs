@@ -1,6 +1,13 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using TodoList.Core.DTOs;
+using TodoList.Core.Entities;
 using TodoList.Data.EF;
+using TodoList.Logic.AuthenticationLogics;
+using TodoList.Logic.Mappers;
+using TodoList.Logic.Services.Implementations;
+using TodoList.Logic.Services.Interfaces;
+using TodoList.Web.Middlewares;
 
 namespace TodoList
 {
@@ -22,6 +29,11 @@ namespace TodoList
                     options.LoginPath = "/Authentication/Login";
                 });
 
+            builder.Services.AddTransient<IAuthenticator, Authenticator>();
+            builder.Services.AddTransient<IUserService, UserService>();
+            builder.Services.AddTransient<ITaskService, TaskService>();
+            builder.Services.AddTransient<IMapperConvertor<TodoTask, TaskDTO>, TodoTaskToTaskDTOMapper>();
+
             var app = builder.Build();
 
             app.UseHttpsRedirection();
@@ -41,6 +53,8 @@ namespace TodoList
                     name: "default",
                     template: "{controller=Tasks}/{action=Index}");
             });
+
+            app.UseMiddleware<FillRoleValuesMiddleware>();
 
             app.Run();
         }

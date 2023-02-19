@@ -1,0 +1,32 @@
+﻿.tasks {
+    width: var(--main-width);
+    color: var(--text-primary);
+}
+
+.tasks__text, .task {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    background: var(--element-background);
+    box-shadow: 0 0 10px 0 var(--shadow);
+}
+
+.tasks__item:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.task__input:focus {
+    background: var(--background-primary-focused);
+    border-radius: 5px;
+    outline: 0;
+    padding: 0 3px;
+}
+
+.tasks__button {
+    margin-top: 10px;
+}
+
+.task__button {
+    text-decoration: underline;
+    cursor: pointer;
+}

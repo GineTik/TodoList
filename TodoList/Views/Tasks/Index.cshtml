@@ -1,8 +1,35 @@
-﻿@if (Context.User.Identity.Name == null)
+﻿@using TodoList.Core.DTOs;
+@model IEnumerable<TaskDTO>
+
+@if (Context.User.Identity.IsAuthenticated == true)
 {
-    <p class="text">Ввійдіть/Зареєструйтесь щоб працювати з TodoList</p>
+    <div class="tasks">
+        @if (Model.Count() == 0)
+        {
+            <span class="tasks__text text">Немає жодних задач</span>
+        }
+
+        <div class="tasks__inner">
+            @foreach (var task in Model)
+            {
+                @(await Component.InvokeAsync("Task", task))
+            }
+        </div>
+
+        <div id="create-task" class="button tasks__button">додати нову задачу</div>
+    </div>
 }
 else 
 {
-    <p class="text">Ви ввійшли</p>
+    <p class="text">Ввійдіть/Зареєструйтесь щоб працювати з TodoList</p>
+}
+
+@section Styles 
+{
+    <link href="~/styles/task.css" rel="stylesheet"/>
+}
+
+@section Scripts 
+{
+    <script type="module" src="~/scripts/Task.js"></script>
 }

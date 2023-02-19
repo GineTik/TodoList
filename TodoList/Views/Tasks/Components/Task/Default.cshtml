@@ -1,0 +1,9 @@
+﻿@model TodoList.Core.DTOs.TaskDTO
+
+<div class="tasks__item task">
+    <input type="checkbox" checked="@Model.Completed" class="task__completed" />
+    <span class="task__text task__input" contenteditable="true">@Model.Text</span>
+    <span class="task__expiration-time task__input" contenteditable="true">@Model.ExpirationTime.ToString("yyyy.MM.dd")</span>
+    <span id="task__button--@Model.Id" data-id="@Model.Id" class="task__button tasks__button--remove">remove</span>
+    <div>@(Model.ExpirationTime < DateTime.Now ? "!!! просрочено" : "")</div>
+</div>

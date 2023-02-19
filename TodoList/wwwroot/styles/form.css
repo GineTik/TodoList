@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background: var(--button-background);
+    background: var(--element-background);
     border-radius: 15px;
     padding: 10px;
     box-shadow: 0 0 10px 0 var(--shadow);
@@ -19,11 +19,11 @@
     background: var(--input-background);
     font-size: 1rem;
     transition: .15s;
-    color: var(--button-text);
+    color: var(--text-button);
 }
 
 .form__input:hover {
-    background: var(--button-background);
+    background: var(--element-background);
 }
 
 .form__input:focus {
@@ -36,7 +36,7 @@
 }
 
 .form__input::placeholder {
-    color: var(--text);
+    color: var(--text-secondary);
 }
 
 .form__button {
@@ -44,7 +44,7 @@
 }
 
 .validation-list:is(.validation-summary-errors) {
-    background: var(--button-background);
+    background: var(--element-background);
     border-radius: 10px;
     padding: 10px 12px;
     margin-top: 10px;
@@ -53,13 +53,13 @@
 
 .validation-list ul {
     list-style: none;
-    color: var(--button-text);
+    color: var(--text-button);
     margin: 0;
     padding: 0;
 }
 
 .field-validation-error {
-    color: var(--button-text);
+    color: var(--text-button);
     font-size: 1rem;
     display: block;
 }

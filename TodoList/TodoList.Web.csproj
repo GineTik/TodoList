@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <Folder Include="Components\" />
-	  <Folder Include="wwwroot\scripts\" />
+    <None Include="Views\Tasks\Components\Task\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TodoList.Data\TodoList.Data.csproj" />
+    <ProjectReference Include="..\TodoList.Logic\TodoList.Logic.csproj" />
   </ItemGroup>
 
 </Project>

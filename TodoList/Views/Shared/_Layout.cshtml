@@ -13,8 +13,16 @@
 </head>
 <body>
     <header class="header">
-        <a asp-controller="Authentication" asp-action="Login" class="button header__button button--login">ввійти</a>
-        <a asp-controller="Authentication" asp-action="Registration" class="button header__button button--registration">зареєструватися</a>
+        @if (Context.User.Identity.IsAuthenticated == true)
+        {
+            <span class="text">Ви ввійшли як @Context.User.Identity.Name</span>
+            <a asp-controller="Authentication" asp-action="Logout" class="button header__button button--registration">вийти</a>
+        }
+        else
+        {
+            <a asp-controller="Authentication" asp-action="Login" class="button header__button button--login">ввійти</a>
+            <a asp-controller="Authentication" asp-action="Registration" class="button header__button button--registration">зареєструватися</a>
+        }
     </header>
     <main class="main">
         @RenderBody()

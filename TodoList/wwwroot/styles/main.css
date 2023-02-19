@@ -1,14 +1,20 @@
 ﻿:root {
-    --page-background: #b04632;
-    --button-text: #fff;
-    --button-background: #ffffff33;
-    --button-background-hover: #ffffff66;
-    --input-background-focus: #ffffff;
-    --text: #ffffff99;
-    --text-focused: #000;
-    --placeholder-focused: #00000066;
     --shadow: #00000011;
     --main-width: 400px;
+    /**/
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff99;
+    --text-focused: #000;
+    --text-button: var(--text-primary);
+    --placeholder-focused: #00000066;
+    /**/
+    --page-background: #b04632;
+    --button-background-hover: var(--background-primary-hovered);
+    --input-background-focus: var(--background-primary-focused);
+    --element-background: var(--background-primary);
+    --background-primary: #ffffff33;
+    --background-primary-hovered: #ffffff66;
+    --background-primary-focused: #fff;
 }
 
 * {
@@ -30,13 +36,17 @@ body {
     margin-bottom: 10px;
 }
 
+.header > * {
+    width: 50%;
+}
+
 .header > *:not(:last-child) {
     margin-right: 7px;
 }
 
-.header__button {
+/*.header__button {
     width: 50%;
-}
+}*/
 
 .main {
     width: var(--main-width);
@@ -51,13 +61,13 @@ body {
     text-align: center;
     padding: 7px 15px;
     border-radius: 10px;
-    color: var(--button-text);
+    color: var(--text-button);
     text-decoration: none;
     font-size: 1rem;
     font-weight: 400;
     flex: 1 1 auto;
     cursor: pointer;
-    background: var(--button-background);
+    background: var(--element-background);
     box-shadow: 0 0 10px 0 var(--shadow);
     transition: .15s;
 }
@@ -67,6 +77,6 @@ body {
 }
 
 .text {
-    color: var(--text);
+    color: var(--text-secondary);
     display: inline-block;
 }
