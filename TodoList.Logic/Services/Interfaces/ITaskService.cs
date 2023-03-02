@@ -10,5 +10,6 @@ namespace TodoList.Logic.Services.Interfaces
         TaskDTO? GetTaskById(int id);
         bool RemoveUserTask(int userId, int taskId);
         bool UpdateUserTask(int userId, TaskDTO dto);
+        bool UpdateTaskOrder(int userId, int[] sortedIds);
     }
 }

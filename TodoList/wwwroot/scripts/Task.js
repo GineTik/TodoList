@@ -77,3 +77,13 @@ function updateTask($task) {
 
     return taskService.updateTask({ id, completed, text, expirationTime: time });
 }
+
+
+// update order task
+
+$(".tasks__inner").sortable({
+    update: function (event, ui) {
+        var data = $(this).sortable("toArray", { attribute: "data-id" });
+        taskService.updateOrderTask(data.map(Number));
+    }
+});

@@ -14,6 +14,8 @@ namespace TodoList.Core.Entities
 
         public bool Completed { get; set; }
 
+        public int? Position { get; set; }
+
         public int UserId { get; set; }
         public User User { get; set; }
     }

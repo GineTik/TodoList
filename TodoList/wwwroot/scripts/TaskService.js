@@ -10,4 +10,7 @@ export default class TaskService {
     updateTask({ id, completed, text, expirationTime }) {
         return send("/Tasks/UpdateTask", "post", { id, completed, text, expirationTime });
     }
+    updateOrderTask(sortedIds) {
+        return send("/Tasks/UpdateTaskOrder", "post", { sortedIds: sortedIds })
+    }
 }

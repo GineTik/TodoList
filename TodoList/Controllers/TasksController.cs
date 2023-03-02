@@ -20,7 +20,6 @@ namespace TodoList.Web.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == true)
             {
                 int userId = GetLoginedUserId();
-
                 return View(_service.GetUserTasks(userId));
             }
 
@@ -41,14 +40,22 @@ namespace TodoList.Web.Controllers
         {
             var userId = GetLoginedUserId();
             var result = _service.RemoveUserTask(userId, id);
-
             return Json(result);
         }
 
+        [Authorize]
         public IActionResult UpdateTask(TaskDTO dto)
         {
             var userId = GetLoginedUserId();
             var result = _service.UpdateUserTask(userId, dto);
+            return Json(result);
+        }
+
+        [Authorize]
+        public IActionResult UpdateTaskOrder(int[] sortedIds)
+        {
+            var userId = GetLoginedUserId();
+            var result = _service.UpdateTaskOrder(userId, sortedIds);
             return Json(result);
         }
 

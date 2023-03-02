@@ -17,6 +17,7 @@
 
 .task__input:focus {
     background: var(--background-primary-focused);
+    color: var(--text-focused);
     border-radius: 5px;
     outline: 0;
     padding: 0 3px;

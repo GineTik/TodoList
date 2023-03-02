@@ -1,6 +1,6 @@
 ﻿@model TodoList.Core.DTOs.TaskDTO
 
-<div class="tasks__item task">
+<div class="tasks__item task" data-id="@Model.Id">
     <input type="checkbox" checked="@Model.Completed" class="task__completed" />
     <span class="task__text task__input" contenteditable="true">@Model.Text</span>
     <span class="task__expiration-time task__input" contenteditable="true">@Model.ExpirationTime.ToString("yyyy.MM.dd")</span>

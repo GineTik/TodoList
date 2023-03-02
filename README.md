@@ -6,10 +6,6 @@
 
 ## Функціональність
 - Авторизація користувачів
-Login
-  ![Login](https://imgflip.com/gif/7cqnli)
-Registration
-  ![Registration](https://imgflip.com/gif/7cqp13)
 - Створення, зміна та видалення задач
 - Перегляд списку всіх задач
 - Перетасовка задач (в розробці)
