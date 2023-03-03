@@ -86,6 +86,7 @@ function updateTask($task) {
 // update order task
 
 $(".tasks__inner").sortable({
+    handle: ".task__button--move",
     update: function (event, ui) {
         var data = $(this).sortable("toArray", { attribute: "data-id" });
         taskService.updateOrderTask(data.map(Number));

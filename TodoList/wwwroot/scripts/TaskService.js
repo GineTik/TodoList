@@ -1,16 +1,16 @@
-﻿import send from "./RequestSender.js";
+﻿import { post } from "./RequestSender.js";
 
 export default class TaskService {
     createTask() {
-        return send("/Tasks/CreateTask", "post", {});
+        return post("/Tasks/CreateTask");
     }
     removeTask(id) {
-        return send("/Tasks/RemoveTask", "post", { id: id });
+        return post("/Tasks/RemoveTask", { id: id });
     }
     updateTask({ id, completed, text, expirationTime }) {
-        return send("/Tasks/UpdateTask", "post", { id, completed, text, expirationTime });
+        return post("/Tasks/UpdateTask", { id, completed, text, expirationTime });
     }
     updateOrderTask(sortedIds) {
-        return send("/Tasks/UpdateTaskOrder", "post", { sortedIds: sortedIds })
+        return post("/Tasks/UpdateTaskOrder", { sortedIds: sortedIds })
     }
 }
