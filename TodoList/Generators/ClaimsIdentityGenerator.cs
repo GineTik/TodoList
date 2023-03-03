@@ -8,6 +8,9 @@ namespace TodoList.Web.Generators
     {
         public static ClaimsIdentity Generate(User user)
         {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),

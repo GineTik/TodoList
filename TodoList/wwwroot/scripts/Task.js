@@ -32,6 +32,8 @@ $("body").on("click", ".tasks__button--remove", function () {
 });
 
 
+
+
 // update task
 
 var tmp_text = '';
@@ -77,6 +79,8 @@ function updateTask($task) {
 
     return taskService.updateTask({ id, completed, text, expirationTime: time });
 }
+
+
 
 
 // update order task

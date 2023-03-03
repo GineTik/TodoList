@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TodoList.Core.DTOs;
+using TodoList.Core.Entities;
 using TodoList.Logic.Services.Interfaces;
 using TodoList.Web.Generators;
+using TodoList.Web.Helpers;
 using TodoList.Web.ViewModels.AuthenticationViewModels;
 
 namespace TodoList.Controllers
@@ -30,7 +33,7 @@ namespace TodoList.Controllers
             if (ModelState.IsValid == false)
                 return View(model);
 
-            var user = _userService.Login(new UserDTO { Login = model.Login, Password = model.Password });
+            var user = _userService.TryLogin(new UserDTO { Login = model.Login, Password = model.Password });
 
             if (user == null)
             {
@@ -39,13 +42,41 @@ namespace TodoList.Controllers
             }
             else
             {
-                var identity = ClaimsIdentityGenerator.Generate(user);
-                await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(identity)
-                );
+                await HttpContext.SignInAsync(user);
                 return RedirectToAction("Index", "Tasks");
             }
+        }
+
+        public IActionResult LoginByGoogle()
+        {
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action(nameof(LoginByGoogleCallback))
+            };
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        public async Task<IActionResult> LoginByGoogleCallback()
+        {
+            var authenticateResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            if (authenticateResult.Succeeded == false)
+                return RedirectToAction(nameof(Login));
+
+            var claims = authenticateResult.Principal.Claims.ToList();
+            var externalEmail = claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+
+            var dto = new UserDTO
+            {
+                Login = externalEmail,
+                Password = externalEmail + "__password"
+            };
+
+            var user = _userService.TryLogin(dto);
+            if (user == null)
+                user = _userService.TryRegistration(dto);
+
+            await HttpContext.SignInAsync(user);
+            return RedirectToAction("Index", "Tasks");
         }
 
         public IActionResult Registration() 
@@ -59,7 +90,7 @@ namespace TodoList.Controllers
             if (ModelState.IsValid == false)
                 return View(model);
 
-            var user = _userService.Registration(new UserDTO { Login = model.Login, Password = model.Password });
+            var user = _userService.TryRegistration(new UserDTO { Login = model.Login, Password = model.Password });
 
             if (user == null)
             {
@@ -68,19 +99,15 @@ namespace TodoList.Controllers
             }
             else
             {
-                var identity = ClaimsIdentityGenerator.Generate(user);
-                await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(identity)
-                );
+                await HttpContext.SignInAsync(user);
                 return RedirectToAction("Index", "Tasks");
             }
         }
 
         [Authorize]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.SignOutAsync();
+            await HttpContext.SignOutAsync();
             return Redirect("/");
         }
     }

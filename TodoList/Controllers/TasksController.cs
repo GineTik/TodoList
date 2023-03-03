@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TodoList.Core.DTOs;
 using TodoList.Logic.Services.Interfaces;
+using TodoList.Web.Helpers;
 
 namespace TodoList.Web.Controllers
 {
@@ -19,7 +20,7 @@ namespace TodoList.Web.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated == true)
             {
-                int userId = GetLoginedUserId();
+                int userId = HttpContext.GetLoginedUserId();
                 return View(_service.GetUserTasks(userId));
             }
 
@@ -30,7 +31,7 @@ namespace TodoList.Web.Controllers
         [HttpPost]
         public IActionResult CreateTask()
         {
-            var task = _service.CreateNewTask(GetLoginedUserId());
+            var task = _service.CreateNewTask(HttpContext.GetLoginedUserId());
             return ViewComponent("Task", task);
         }
 
@@ -38,7 +39,7 @@ namespace TodoList.Web.Controllers
         [HttpPost]
         public IActionResult RemoveTask(int id)
         {
-            var userId = GetLoginedUserId();
+            var userId = HttpContext.GetLoginedUserId();
             var result = _service.RemoveUserTask(userId, id);
             return Json(result);
         }
@@ -46,7 +47,7 @@ namespace TodoList.Web.Controllers
         [Authorize]
         public IActionResult UpdateTask(TaskDTO dto)
         {
-            var userId = GetLoginedUserId();
+            var userId = HttpContext.GetLoginedUserId();
             var result = _service.UpdateUserTask(userId, dto);
             return Json(result);
         }
@@ -54,21 +55,9 @@ namespace TodoList.Web.Controllers
         [Authorize]
         public IActionResult UpdateTaskOrder(int[] sortedIds)
         {
-            var userId = GetLoginedUserId();
+            var userId = HttpContext.GetLoginedUserId();
             var result = _service.UpdateTaskOrder(userId, sortedIds);
             return Json(result);
-        }
-
-        private int GetLoginedUserId()
-        {
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                throw new InvalidOperationException("user not authenticated");
-
-            int userId = int.Parse(HttpContext.User.Claims
-                    .First(c => c.Type == ClaimTypes.NameIdentifier)
-                    .Value);
-
-            return userId;
         }
     }
 }

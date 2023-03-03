@@ -12,7 +12,7 @@ namespace TodoList.Logic.AuthenticationLogics
             _context = context;
         }
 
-        public User? Login(User user, string password)
+        public User? TryLogin(User user, string password)
         {
             var hash = PasswordHasher.HashPassword(password);
             var loginedUser = _context.Users.FirstOrDefault(u => 
@@ -22,7 +22,7 @@ namespace TodoList.Logic.AuthenticationLogics
             return loginedUser?.Banned == false ? loginedUser : null;
         }
 
-        public User? Registration(User user, string password)
+        public User? TryRegistration(User user, string password)
         {
             var findedUser = _context.Users.FirstOrDefault(u =>
                 u.Login == user.Login);

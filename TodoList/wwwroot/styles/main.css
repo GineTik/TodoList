@@ -72,6 +72,11 @@ body {
     transition: .15s;
 }
 
+.button--google {
+    width: 100%;
+    margin-top: 10px;
+}
+
 .button:hover {
     background: var(--button-background-hover);
 }
