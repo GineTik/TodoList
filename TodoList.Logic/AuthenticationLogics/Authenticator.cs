@@ -12,17 +12,20 @@ namespace TodoList.Logic.AuthenticationLogics
             _context = context;
         }
 
-        public User? TryLogin(User user, string password)
+        public async Task<User?> TryLogin(User user, string password)
         {
-            var hash = PasswordHasher.HashPassword(password);
-            var loginedUser = _context.Users.FirstOrDefault(u => 
-                u.Login == user.Login &&
-                u.Password == hash);
+            return await Task.Run(() =>
+            {
+                var hash = PasswordHasher.HashPassword(password);
+                var loginedUser = _context.Users.FirstOrDefault(u =>
+                    u.Login == user.Login &&
+                    u.Password == hash);
 
-            return loginedUser?.Banned == false ? loginedUser : null;
+                return loginedUser?.Banned == false ? loginedUser : null;
+            });
         }
 
-        public User? TryRegistration(User user, string password)
+        public async Task<User?> TryRegistration(User user, string password)
         {
             var findedUser = _context.Users.FirstOrDefault(u =>
                 u.Login == user.Login);
@@ -36,7 +39,7 @@ namespace TodoList.Logic.AuthenticationLogics
             user.Banned = false;
 
             var registeredUser = _context.Users.Add(user).Entity;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return registeredUser;
         }

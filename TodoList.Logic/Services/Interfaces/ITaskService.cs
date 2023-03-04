@@ -1,15 +1,14 @@
 ﻿using TodoList.Core.DTOs;
-using TodoList.Core.Entities;
 
 namespace TodoList.Logic.Services.Interfaces
 {
     public interface ITaskService
     {
-        TaskDTO CreateNewTask(int userId);
-        IEnumerable<TaskDTO> GetUserTasks(int userId);
-        TaskDTO? GetTaskById(int id);
-        bool RemoveUserTask(int userId, int taskId);
-        bool UpdateUserTask(int userId, TaskDTO dto);
-        bool UpdateTaskOrder(int userId, int[] sortedIds);
+        Task<TaskDTO> CreateNewTaskAsync(int userId);
+        Task<IEnumerable<TaskDTO>> GetUserTasksAsync(int userId);
+        Task<TaskDTO?> GetTaskByIdAsync(int id);
+        Task<bool> RemoveUserTaskAsync(int userId, int taskId);
+        Task<bool> UpdateUserTaskAsync(int userId, TaskDTO dto);
+        Task<bool> UpdateTaskOrderAsync(int userId, int[] sortedIds);
     }
 }

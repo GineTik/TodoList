@@ -5,7 +5,7 @@ namespace TodoList.Logic.Services.Interfaces
 {
     public interface IUserService
     {
-        User? TryLogin(UserDTO dto);
-        User? TryRegistration(UserDTO dto);
+        Task<User?> TryLoginAsync(UserDTO dto);
+        Task<User?> TryRegistrationAsync(UserDTO dto);
     }
 }

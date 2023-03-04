@@ -16,12 +16,12 @@ namespace TodoList.Web.Controllers
             _service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (HttpContext.User.Identity.IsAuthenticated == true)
             {
                 int userId = HttpContext.GetLoginedUserId();
-                return View(_service.GetUserTasks(userId));
+                return View(await _service.GetUserTasksAsync(userId));
             }
 
             return View();
@@ -29,34 +29,34 @@ namespace TodoList.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult CreateTask()
+        public async Task<IActionResult> CreateTask()
         {
-            var task = _service.CreateNewTask(HttpContext.GetLoginedUserId());
+            var task = await _service.CreateNewTaskAsync(HttpContext.GetLoginedUserId());
             return ViewComponent("Task", task);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult RemoveTask(int id)
+        public async Task<IActionResult> RemoveTask(int id)
         {
             var userId = HttpContext.GetLoginedUserId();
-            var result = _service.RemoveUserTask(userId, id);
+            var result = await _service.RemoveUserTaskAsync(userId, id);
             return Json(result);
         }
 
         [Authorize]
-        public IActionResult UpdateTask(TaskDTO dto)
+        public async Task<IActionResult> UpdateTask(TaskDTO dto)
         {
             var userId = HttpContext.GetLoginedUserId();
-            var result = _service.UpdateUserTask(userId, dto);
+            var result = await _service.UpdateUserTaskAsync(userId, dto);
             return Json(result);
         }
 
         [Authorize]
-        public IActionResult UpdateTaskOrder(int[] sortedIds)
+        public async Task<IActionResult> UpdateTaskOrder(int[] sortedIds)
         {
             var userId = HttpContext.GetLoginedUserId();
-            var result = _service.UpdateTaskOrder(userId, sortedIds);
+            var result = await _service.UpdateTaskOrderAsync(userId, sortedIds);
             return Json(result);
         }
     }

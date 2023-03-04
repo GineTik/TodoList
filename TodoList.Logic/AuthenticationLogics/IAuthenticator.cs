@@ -4,7 +4,7 @@ namespace TodoList.Logic.AuthenticationLogics
 {
     public interface IAuthenticator
     {
-        User? TryLogin(User user, string password);
-        User? TryRegistration(User user, string password);
+        Task<User?> TryLogin(User user, string password);
+        Task<User?> TryRegistration(User user, string password);
     }
 }

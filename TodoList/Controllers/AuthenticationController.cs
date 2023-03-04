@@ -33,7 +33,7 @@ namespace TodoList.Controllers
             if (ModelState.IsValid == false)
                 return View(model);
 
-            var user = _userService.TryLogin(new UserDTO { Login = model.Login, Password = model.Password });
+            var user = await _userService.TryLoginAsync(new UserDTO { Login = model.Login, Password = model.Password });
 
             if (user == null)
             {
@@ -71,9 +71,9 @@ namespace TodoList.Controllers
                 Password = externalEmail + "__password"
             };
 
-            var user = _userService.TryLogin(dto);
+            var user = await _userService.TryLoginAsync(dto);
             if (user == null)
-                user = _userService.TryRegistration(dto);
+                user = await _userService.TryRegistrationAsync(dto);
 
             await HttpContext.SignInAsync(user);
             return RedirectToAction("Index", "Tasks");
@@ -90,7 +90,7 @@ namespace TodoList.Controllers
             if (ModelState.IsValid == false)
                 return View(model);
 
-            var user = _userService.TryRegistration(new UserDTO { Login = model.Login, Password = model.Password });
+            var user = await _userService.TryRegistrationAsync(new UserDTO { Login = model.Login, Password = model.Password });
 
             if (user == null)
             {

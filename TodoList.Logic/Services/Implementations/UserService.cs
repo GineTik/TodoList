@@ -14,14 +14,14 @@ namespace TodoList.Logic.Services.Implementations
             _authenticator = authenticator;
         }
 
-        public User? TryLogin(UserDTO dto)
+        public async Task<User?> TryLoginAsync(UserDTO dto)
         {
-            return _authenticator.TryLogin(new User { Login = dto.Login }, dto.Password);
+            return await _authenticator.TryLogin(new User { Login = dto.Login }, dto.Password);
         }
 
-        public User? TryRegistration(UserDTO dto)
+        public async Task<User?> TryRegistrationAsync(UserDTO dto)
         {
-            return _authenticator.TryRegistration(new User { Login = dto.Login }, dto.Password);
+            return await _authenticator.TryRegistration(new User { Login = dto.Login }, dto.Password);
         }
     }
 }

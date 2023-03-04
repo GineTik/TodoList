@@ -18,7 +18,7 @@ namespace TodoList.Logic.Services.Implementations
             _taskMapper = taskMapper;
         }
 
-        public TaskDTO CreateNewTask(int userId)
+        public async Task<TaskDTO> CreateNewTaskAsync(int userId)
         {
             var task = new TodoTask()
             {
@@ -29,27 +29,33 @@ namespace TodoList.Logic.Services.Implementations
                 Position = null,
             };
             var result = _context.Tasks.Add(task).Entity;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return _taskMapper.Convert(result);
         }
 
-        public TaskDTO? GetTaskById(int id)
+        public Task<TaskDTO?> GetTaskByIdAsync(int id)
         {
-            var result = _context.Tasks.FirstOrDefault(x => x.Id == id);
+            return Task.Run(() =>
+            {
+                var result = _context.Tasks.FirstOrDefault(x => x.Id == id);
 
-            if (result == null) 
-                return null;
+                if (result == null)
+                    return null;
 
-            return _taskMapper.Convert(result);
+                return _taskMapper.Convert(result);
+            });
         }
 
-        public IEnumerable<TaskDTO> GetUserTasks(int userId)
+        public async Task<IEnumerable<TaskDTO>> GetUserTasksAsync(int userId)
         {
-            var userTasks = _context.Tasks.Where(x => x.UserId == userId);
-            return userTasks.OrderBy(x => x.Position).Select(_taskMapper.Convert);
+            return await Task.Run(() =>
+            {
+                var userTasks = _context.Tasks.Where(x => x.UserId == userId);
+                return userTasks.OrderBy(x => x.Position).Select(_taskMapper.Convert);
+            });
         }
 
-        public bool RemoveUserTask(int userId, int taskId)
+        public async Task<bool> RemoveUserTaskAsync(int userId, int taskId)
         {
             var task = _context.Tasks.FirstOrDefault(t => t.Id == taskId);
 
@@ -57,11 +63,11 @@ namespace TodoList.Logic.Services.Implementations
                 return false;
 
             var result = _context.Tasks.Remove(task).State == Microsoft.EntityFrameworkCore.EntityState.Deleted;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return result;
         }
 
-        public bool UpdateTaskOrder(int userId, int[] taskOrder)
+        public async Task<bool> UpdateTaskOrderAsync(int userId, int[] taskOrder)
         {
             var tasks = _context.Tasks.Where(x => x.UserId == userId);
 
@@ -76,11 +82,11 @@ namespace TodoList.Logic.Services.Implementations
                 _context.Entry(task).State = EntityState.Modified;
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public bool UpdateUserTask(int userId, TaskDTO dto)
+        public async Task<bool> UpdateUserTaskAsync(int userId, TaskDTO dto)
         {
             var task = _context.Tasks.FirstOrDefault(x => x.Id == dto.Id);
 
@@ -92,7 +98,7 @@ namespace TodoList.Logic.Services.Implementations
             task.ExpirationTime = dto.ExpirationTime;
 
             var result = _context.Tasks.Update(task).State == Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return result;
         }
     }
